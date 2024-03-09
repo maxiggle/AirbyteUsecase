@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "15552895853",
+    "project_id": "airbyteconnect-df4bc",
+    "storage_bucket": "airbyteconnect-df4bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15552895853:android:b298e12d89438cc71f1864",
+        "android_client_info": {
+          "package_name": "com.example.airbyteconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyXA5UqtF3kfK1psTKBwM7jAyV8wkWvVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
