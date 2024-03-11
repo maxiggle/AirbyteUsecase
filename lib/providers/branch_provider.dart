@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:airbyteconnect/models/branch_models.dart';
-import 'package:airbyteconnect/services/firebase_repository/repository.dart';
+import 'package:airbyteconnect/services/repository.dart';
 import 'package:flutter/material.dart';
 
 class BranchProvider extends ChangeNotifier {
@@ -16,25 +16,25 @@ class BranchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<GithubUserData>? _collaborators = [];
-  List<GithubUserData>? get getCollaborators => _collaborators;
+  final List<GithubUserData> _collaborators = [];
+  List<GithubUserData> get getCollaborators => _collaborators;
   void fetchCollaborators() async {
     final result = await _db.getCollaborators();
     log(result[1].htmlUrl);
-    _collaborators?.addAll(result);
+    _collaborators.addAll(result);
     notifyListeners();
   }
 
-  List<Commit>? _commits = [];
-  List<Commit>? get getCommits => _commits;
+  final List<Commit> _commits = [];
+  List<Commit> get getCommits => _commits;
   void fetchCommits() async {
     final result = await _db.getCommits();
     log(result.map((e) => e.author.name).toList().toString());
-    _commits?.addAll(result);
+    _commits.addAll(result);
     notifyListeners();
   }
 
-  List<WeekData> _weekData = [];
+  final List<WeekData> _weekData = [];
   List<WeekData> get weekData => _weekData;
   void fetchContributorActivity() async {
     final result = await _db.getContributorsActivity();
@@ -42,53 +42,52 @@ class BranchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<ContributorFollower>? _followers = [];
-  List<ContributorFollower>? get getFollowers => _followers;
+  final List<ContributorFollower> _followers = [];
+  List<ContributorFollower> get getFollowers => _followers;
   void getPeterFollowers(String name) async {
     final resp = await _db.getFollowers(name);
     if (resp.statusCode == 200) {
       List<dynamic> json = jsonDecode(resp.body);
-      _followers?.addAll(json.map((e) => ContributorFollower.fromJson(e)));
+      _followers.addAll(json.map((e) => ContributorFollower.fromJson(e)));
       log(_followers.toString());
       notifyListeners();
     }
   }
 
-  List<ContributorFollower>? _maxFollowers = [];
-  List<ContributorFollower>? get getMaxFollowers => _maxFollowers;
+  final List<ContributorFollower> _maxFollowers = [];
+  List<ContributorFollower> get getMaxFollowers => _maxFollowers;
   void fetchMaxFollowers(String name) async {
     final resp = await _db.getFollowers(name);
     if (resp.statusCode == 200) {
       List<dynamic> json = jsonDecode(resp.body);
-      _maxFollowers?.addAll(json.map((e) => ContributorFollower.fromJson(e)));
+      _maxFollowers.addAll(json.map((e) => ContributorFollower.fromJson(e)));
       log(_followers.toString());
       notifyListeners();
     }
   }
 
-  List<ContributorFollowings>? _maxFollowings = [];
-  List<ContributorFollowings>? get getMaxFollowings => _maxFollowings;
+  final List<ContributorFollowings> _maxFollowings = [];
+  List<ContributorFollowings> get getMaxFollowings => _maxFollowings;
   void fetchMaxFollowings(String name) async {
     final resp = await _db.getFollowings(name);
     if (resp.statusCode == 200) {
       List<dynamic> json = jsonDecode(resp.body);
-      _maxFollowings
-          ?.addAll(json.map((e) => ContributorFollowings.fromJson(e)));
+      _maxFollowings.addAll(json.map((e) => ContributorFollowings.fromJson(e)));
       log(_followings.toString());
-      log(getFollowings!.length.toString());
+      log(getFollowings.length.toString());
       notifyListeners();
     }
   }
 
-  List<ContributorFollowings>? _followings = [];
-  List<ContributorFollowings>? get getFollowings => _followings;
+  final List<ContributorFollowings> _followings = [];
+  List<ContributorFollowings> get getFollowings => _followings;
   void getPeterFollowings(String name) async {
     final resp = await _db.getFollowings(name);
     if (resp.statusCode == 200) {
       List<dynamic> json = jsonDecode(resp.body);
-      _followings?.addAll(json.map((e) => ContributorFollowings.fromJson(e)));
+      _followings.addAll(json.map((e) => ContributorFollowings.fromJson(e)));
       log(_followings.toString());
-      log(getFollowings!.length.toString());
+      log(getFollowings.length.toString());
       notifyListeners();
     }
   }

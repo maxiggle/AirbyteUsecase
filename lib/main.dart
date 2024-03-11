@@ -4,7 +4,7 @@ import 'package:airbyteconnect/presentation/activity_card_one.dart';
 import 'package:airbyteconnect/presentation/profile_card.dart';
 import 'package:airbyteconnect/providers/branch_provider.dart';
 import 'package:airbyteconnect/presentation/charts.dart';
-import 'package:airbyteconnect/services/firebase_repository/repository.dart';
+import 'package:airbyteconnect/services/repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

@@ -10,15 +10,16 @@ class ActivityCardOne extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BranchProvider>(
       builder: (context, state, child) {
-        if (state.getCollaborators!.isEmpty) {
+        if (state.getCollaborators.isEmpty) {
           return const Center(child: CircularProgressIndicator.adaptive());
         } else {
-          final Uri _url = Uri.parse(
-              '${context.read<BranchProvider>().getCollaborators?[1].htmlUrl}');
+          final Uri url = Uri.parse(
+              context.read<BranchProvider>().getCollaborators[1].htmlUrl);
 
+          // ignore: no_leading_underscores_for_local_identifiers
           Future<void> _launchUrl() async {
-            if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
-              throw Exception('Could not launch $_url');
+            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+              throw Exception('Could not launch $url');
             }
           }
 
@@ -58,7 +59,7 @@ class ActivityCardOne extends StatelessWidget {
                               _launchUrl();
                             },
                             child: Text(
-                              state.getCollaborators?[1].htmlUrl ?? '',
+                              state.getCollaborators[1].htmlUrl,
                               style: const TextStyle(
                                   fontSize: 15,
                                   decoration: TextDecoration.underline),
@@ -72,7 +73,7 @@ class ActivityCardOne extends StatelessWidget {
                         const Text('Total Commit: ',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
-                        Text('${state.getCommits?.length}',
+                        Text('${state.getCommits.length}',
                             style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
                       ],
@@ -92,7 +93,7 @@ class ActivityCardOne extends StatelessWidget {
                         const Text('Followers: ',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
-                        Text(state.getMaxFollowers?.length.toString() ?? '0',
+                        Text(state.getMaxFollowers.length.toString(),
                             style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
                       ],
@@ -102,7 +103,7 @@ class ActivityCardOne extends StatelessWidget {
                         const Text('Followings: ',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
-                        Text('${state.getMaxFollowings?.length}',
+                        Text('${state.getMaxFollowings.length}',
                             style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
                       ],

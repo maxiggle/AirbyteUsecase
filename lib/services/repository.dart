@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:airbyteconnect/const.dart';
 import 'package:airbyteconnect/models/branch_models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
@@ -15,14 +16,6 @@ abstract class _Repository {
 
 class DataBaseRepository extends _Repository {
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  String kCollectionName1 = 'collaborators';
-  String kCollectionName2 = 'branches';
-  String kCollectionName3 = 'commits';
-  String kCollectionName4 = 'pull_requests';
-  String kCollectionName5 = 'pull_request_commits';
-  String kCollectionName6 = 'comments';
-  String kCollectionName7 = 'issues';
-  String kCollectionName8 = 'contributor_activity';
 
   Future<List<String>> getDocumentIds(String id) async {
     final snapshot = await db.collection(id).get();
