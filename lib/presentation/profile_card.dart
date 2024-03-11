@@ -1,4 +1,3 @@
-import 'package:airbyteconnect/const.dart';
 import 'package:airbyteconnect/providers/branch_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,7 @@ class ContributorImageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BranchProvider>(
       builder: (context, state, child) {
-        if (state.getCollaborators!.isEmpty) {
+        if (state.getCollaborators.isEmpty) {
           return const Center(child: CircularProgressIndicator.adaptive());
         } else {
           return Container(
@@ -24,7 +23,7 @@ class ContributorImageCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  state.getCollaborators?[0].repository ?? '',
+                  state.getCollaborators[0].repository,
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w500),
                 ),
@@ -48,8 +47,8 @@ class ContributorImageCard extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Image.network(
-                                  state.getCollaborators?[0].avatarUrl ??
-                                      noImage),
+                                state.getCollaborators[0].avatarUrl,
+                              ),
                             ),
                           ),
                           Positioned(
@@ -64,8 +63,7 @@ class ContributorImageCard extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
-                                    state.getCollaborators?[1].avatarUrl ??
-                                        noImage),
+                                    state.getCollaborators[1].avatarUrl),
                               ),
                             ),
                           )

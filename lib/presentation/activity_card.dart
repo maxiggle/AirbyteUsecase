@@ -10,15 +10,16 @@ class ActivityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BranchProvider>(
       builder: (context, state, child) {
-        if (state.getCollaborators!.isEmpty) {
+        if (state.getCollaborators.isEmpty) {
           return const Center(child: CircularProgressIndicator.adaptive());
         } else {
-          final Uri _url = Uri.parse(
-              '${context.read<BranchProvider>().getCollaborators?[0].htmlUrl}');
+          final Uri url = Uri.parse(
+              context.read<BranchProvider>().getCollaborators[0].htmlUrl);
 
+          // ignore: no_leading_underscores_for_local_identifiers
           Future<void> _launchUrl() async {
-            if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
-              throw Exception('Could not launch $_url');
+            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+              throw Exception('Could not launch $url');
             }
           }
 
@@ -58,7 +59,7 @@ class ActivityCard extends StatelessWidget {
                               _launchUrl();
                             },
                             child: Text(
-                              state.getCollaborators?[0].htmlUrl ?? '',
+                              state.getCollaborators[0].htmlUrl,
                               style: const TextStyle(
                                   fontSize: 15,
                                   decoration: TextDecoration.underline),
@@ -92,7 +93,7 @@ class ActivityCard extends StatelessWidget {
                         const Text('Followers: ',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
-                        Text(state.getFollowers?.length.toString() ?? '0',
+                        Text(state.getFollowers.length.toString(),
                             style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
                       ],
@@ -102,7 +103,7 @@ class ActivityCard extends StatelessWidget {
                         const Text('Followings: ',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
-                        Text('${state.getFollowings?.length}',
+                        Text('${state.getFollowings.length}',
                             style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500)),
                       ],

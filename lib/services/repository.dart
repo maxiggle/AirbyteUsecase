@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:airbyteconnect/const.dart';
 import 'package:airbyteconnect/models/branch_models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 abstract class _Repository {
@@ -42,10 +43,10 @@ class DataBaseRepository extends _Repository {
     final allDocs =
         await snapshot.where(FieldPath.documentId, whereIn: documentIds).get();
     List<GithubUserData> collaborators = [];
-    allDocs.docs.forEach((doc) {
+    for (var doc in allDocs.docs) {
       final data = doc.data();
       collaborators.add(GithubUserData.fromJson(data));
-    });
+    }
     return collaborators;
   }
 
@@ -64,16 +65,16 @@ class DataBaseRepository extends _Repository {
       final allDocs =
           await snapshot.where(FieldPath.documentId, whereIn: data).get();
       List<Commit> commits = [];
-      allDocs.docs.forEach((doc) {
+      for (var doc in allDocs.docs) {
         final data = doc.data();
         Map<String, dynamic>? decoded = jsonDecode(jsonEncode(data));
         if (decoded != null && decoded.containsKey('commit')) {
           commits.add(Commit.fromJson(decoded['commit']));
         }
-      });
+      }
       return commits;
     } catch (e, stackTrace) {
-      print('Error fetching commits: $e\n$stackTrace');
+      debugPrint('Error fetching commits: $e\n$stackTrace');
       return [];
     }
   }
@@ -100,10 +101,10 @@ class DataBaseRepository extends _Repository {
 
   @override
   Future<void> getPullRequests() async {
-    final data = await getDocumentIds(kCollectionName4);
-    final snapshot = db.collection(kCollectionName4);
-    final allDocs =
-        await snapshot.where(FieldPath.documentId, whereIn: data).get();
+    // final data = await getDocumentIds(kCollectionName4);
+    // final snapshot = db.collection(kCollectionName4);
+    // final allDocs =
+    //     await snapshot.where(FieldPath.documentId, whereIn: data).get();
     // return data;
   }
 
